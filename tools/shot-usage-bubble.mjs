@@ -67,7 +67,7 @@ const labels = JSON.parse((await evalJs(
 console.log('菜单项：' + JSON.stringify(labels));
 
 const want = labels.find((x) => /余额/.test(x));
-if (!want) { console.error('菜单里找不到「余额」项 —— 先确认补丁 17/17'); ws.close(); process.exit(1); }
+if (!want) { console.error('菜单里找不到「余额」项 —— 先确认补丁 18/18'); ws.close(); process.exit(1); }
 
 const clicked = await evalJs(`(() => {
   const el = [...document.querySelectorAll('.dsh-pet-menu-item')].find(x => x.textContent.trim() === ${JSON.stringify(want)});

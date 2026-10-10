@@ -276,7 +276,7 @@ async function cmdDoctor() {
   say(s.running
     ? ok(`服务在运行（pid ${s.pid}${s.uptimeMs ? '，已运行 ' + humanDuration(s.uptimeMs) : ''}${s.phase ? '，phase=' + s.phase : ''}）`)
     : dot('服务未运行（不影响安装：桌宠会在它启动时出现）'));
-  if (s.running && !s.healthy) say(`  ! 进程在，但心跳已 ${Math.round((s.hbAgeMs ?? 0) / 1000)}s 未更新（可能卡住；她自己那份 gateway_watchdog 会处理）`);
+  if (s.running && !s.healthy) say(`  ! 进程在，但心跳已 ${Math.round((s.hbAgeMs ?? 0) / 1000)}s 未更新（可能卡住；Hermes 自带的 gateway_watchdog 会处理）`);
   say(fs.existsSync(GATEWAY_PID) ? ok(`gateway.pid：${GATEWAY_PID}`) : dot('没有 gateway.pid（服务没起过或已清理）'));
   say(fs.existsSync(GATEWAY_HEARTBEAT) ? ok(`心跳文件：${GATEWAY_HEARTBEAT}（30s 一跳）`) : dot('没有心跳文件'));
   say(fs.existsSync(GATEWAY_LIFECYCLE) ? ok(`生命周期文件：${GATEWAY_LIFECYCLE}`) : dot('没有生命周期文件'));
@@ -373,13 +373,13 @@ async function cmdInstall(argv) {
   say(`\nHermes 服务：${s.running ? `在线（pid ${s.pid}）` : '未在线'}`);
   if (!s.running) {
     say('  桌宠现在不会出现（这是设计：跟着服务走）。要让它立刻出现，先把服务拉起来：');
-    say('    hermes gateway run     （或用她自己那份 gateway-service\\Hermes_Gateway.vbs）');
+    say('    hermes gateway run     （或用 Hermes 自带的 gateway-service\\Hermes_Gateway.vbs）');
   }
   say('\n完成。\n');
 }
 
 async function cmdStart(argv = []) {
-  // start --with-hermes：顺手把 Hermes 服务也拉起来（走她自己那份已验证的启动器）
+  // start --with-hermes：顺手把 Hermes 服务也拉起来（走 Hermes 自带的那套已验证的启动器）
   if (argv.includes('--with-hermes')) {
     const r = await launchGateway();
     say(r.ok ? ok(`已拉起 Hermes 服务（${r.via}）`) : bad(`拉起服务失败：${r.message}`));

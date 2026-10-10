@@ -152,7 +152,7 @@ function scenes() {
     },
     {
       key: 'cron-success', expect: 'success',
-      over: (N) => ({ source: 'cron', title: '每日创作者日志 · Sep 25 21:10', last_activity_at: N, last_activity_description: '', ended_at: N }),
+      over: (N) => ({ source: 'cron', title: '每日小结 · Sep 25 21:10', last_activity_at: N, last_activity_description: '', ended_at: N }),
       msgs: (N) => [{ role: 'assistant', content: '日志已生成', tool_calls: null, finish_reason: 'stop', timestamp: N - 5 }],
     },
     {

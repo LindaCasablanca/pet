@@ -27,3 +27,6 @@ tools/shots/
 
 # 本地笔记目录，不入库
 _private/
+
+# 过程性文档（实现笔记 / 开发日记）—— 只留本地，不进公开仓库
+docs/implementation-notes.md

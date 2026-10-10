@@ -88,7 +88,7 @@ const items = labels ? JSON.parse(labels) : [];
 console.log('菜单项：' + JSON.stringify(items, null, 0));
 check('菜单里有「退出桌宠」', items.includes('退出桌宠'));
 if (!items.includes('退出桌宠')) {
-  console.log('\n结论：补丁没生效或菜单结构变了 —— 先查 patch 是否 17/17');
+  console.log('\n结论：补丁没生效或菜单结构变了 —— 先查 patch 是否 18/18');
   ws.close(); process.exit(1);
 }
 
