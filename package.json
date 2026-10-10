@@ -21,7 +21,7 @@
     "win32"
   ],
   "dependencies": {
-    "dsh-pet": "^0.2.11",
+    "dsh-pet": "^0.3.6",
     "@electron/get": "^5.1.0"
   },
   "keywords": [
