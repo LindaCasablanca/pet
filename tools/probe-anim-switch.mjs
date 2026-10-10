@@ -112,7 +112,7 @@ for (let i = 0; i < 18; i++) plan.push(i);
 const ACTION = {
   2: () => writeWorking('C:\\Hermes\\b.md'),   // 同档位，只换任务
   5: () => writeWorking('C:\\Hermes\\c-caption-plan.json'),
-  8: () => writeWorking('（本地工作目录）\\RAG\\_captions.json'),
+  8: () => writeWorking('C:\\Hermes\\captions.json'),
   12: () => writeResult(),                     // 换档位
 };
 

@@ -4,11 +4,12 @@
 #
 # ⚠️ 只能对着「还带着 cc-switch 改造」的产物跑。现在 plugin 已经被本包改成 hermes 版了，
 #    直接再跑一次会把 hermes 版的文本当成"上一版"截出来，legacy-snippets.json 就废了。
-#    真要重生成，先把 cc-switch 版产物弄回来（它自己的包在 （cc-switch 版源码目录））。
+#    真要重生成，得先把 cc-switch 版的产物放回来。
 import json
+import os
 import pathlib
 
-H = pathlib.Path(r"%LOCALAPPDATA%\dsh-pet\plugin\runtime\electron-helper")
+H = pathlib.Path(os.environ.get("LOCALAPPDATA", ""), "dsh-pet", "plugin", "runtime", "electron-helper")
 
 SPECS = [
     # (id, 文件, 起始锚点, 结束锚点)
@@ -56,6 +57,6 @@ for rid, fn, start_anchor, end_anchor in SPECS:
     out[rid] = snippet
     print(f"OK {rid:16s} {fn:16s} {len(snippet):6d} 字节  {snippet.count(chr(10)) + 1} 行")
 
-target = pathlib.Path(r"本包源码目录\lib\legacy-snippets.json")
+target = pathlib.Path(__file__).resolve().parent.parent / "lib" / "legacy-snippets.json"
 target.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
 print("\n写出:", target, target.stat().st_size, "字节，共", len(out), "条")
