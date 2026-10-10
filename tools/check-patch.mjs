@@ -2,7 +2,7 @@
 /**
  * check-patch.mjs —— 补丁体检：这个包能不能打在**目标 dsh-pet 版本**上？
  *
- * 场景：你把本包装到了别的 dsh-pet 版本（或上游又发新版了），想知道那 15 条规则
+ * 场景：你把本包装到了别的 dsh-pet 版本（或上游又发新版了），想知道那 18 条规则
  * 还能认出几处原文。认不出的规则**不会报错、只会退化成原版行为** —— 所以必须主动体检。
  *
  * 用法：
@@ -23,6 +23,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { applyPatches } from '../lib/patch.mjs';
 import { PLUGIN_DIR } from '../lib/paths.mjs';
+import { stripJsonc } from '../lib/jsonc.mjs';
 
 const argv = process.argv.slice(2);
 const doApply = argv.includes('--apply');
@@ -34,28 +35,7 @@ if (!fs.existsSync(path.join(target, 'runtime', 'electron-helper'))) {
   process.exit(2);
 }
 
-/** JSONC 解析：剥行注释 / 块注释 / 尾随逗号。原生 config.jsonc 里有 160+ 行**行内**注释，
- *  只剥行首 `//` 的偷懒写法会连未改动的原生文件都判不过（= 校验器自己的误报）。 */
-function stripJsonc(s) {
-  let out = '', inStr = false, esc = false, inLine = false, inBlock = false;
-  for (let i = 0; i < s.length; i++) {
-    const c = s[i], n = s[i + 1];
-    if (inLine) { if (c === '\n') { inLine = false; out += c; } continue; }
-    if (inBlock) { if (c === '*' && n === '/') { inBlock = false; i++; } continue; }
-    if (inStr) {
-      out += c;
-      if (esc) esc = false;
-      else if (c === '\\') esc = true;
-      else if (c === '"') inStr = false;
-      continue;
-    }
-    if (c === '"') { inStr = true; out += c; continue; }
-    if (c === '/' && n === '/') { inLine = true; i++; continue; }
-    if (c === '/' && n === '*') { inBlock = true; i++; continue; }
-    out += c;
-  }
-  return out.replace(/,(\s*[}\]])/g, '$1');
-}
+/** JSONC 解析在 lib/jsonc.mjs（与 host.mjs、测试共用一份，别抄第二遍） */
 
 const HELPER_FILES = ['shared-core.js', 'sprite.js', 'main.js', 'events.js', 'renderer.js', 'preload.js'];
 
