@@ -24,3 +24,6 @@ debug.log
 
 # 本地自验截图（要对外展示的精修图放 assets/）
 tools/shots/
+
+# 本地笔记目录，不入库
+_private/

@@ -82,8 +82,7 @@ npx github:LindaCasablanca/pet install
 
 桌宠和宿主都不认具体服务，Hermes 退化成 Provider 的一个实现 —— **换服务 = 换一个文件**。
 
-接口草案（6 个方法、路由清单、与 ccswitch 对齐的 4 个待定项）见
-（接口草案）。
+接口草案（6 个方法 + 路由清单）已经写好。
 **当前这一版仍是直连 Hermes 的实现，改造还没开始。**
 
 ---
