@@ -81,6 +81,35 @@ npx github:LindaCasablanca/pet uninstall   # 移除开机自启（`--purge` 连�
 
 ---
 
+## 关于凭证：本包不含任何密钥
+
+**结论先说**：仓库里没有任何 API key，别人装了也用不到你的 key。
+
+- 全仓扫描（含 git 历史）`sk-*`、`api_key=`、`Bearer`、密钥赋值形态 —— **零命中**。
+- 代码只是**读**凭证，不是存凭证。`lib/hermes.mjs` 的 `deepseekKey()` 优先取进程环境变量、
+  其次读 `HERMES_HOME\.env`，**读不到就返回空字符串**，不会回落到任何硬编码的值：
+
+  ```js
+  export function deepseekKey() {
+    return process.env.DEEPSEEK_API_KEY || envFileVars().DEEPSEEK_API_KEY || '';
+  }
+  ```
+
+- 别人装这个包时，`HERMES_HOME` 指向**他自己**的 Hermes —— 用的是他自己的 key。
+  他要是没配，就只是「碎碎念 / 对话」用不了，不会动到任何人的账。
+- `.gitignore` 挡掉 `logs/`、`user/`、`runtime.json`、`plugin/`，`.env` 也一并挡住。
+
+⚠️ 真正要看好的两处，**都不在这个仓库里**：
+
+| 位置 | 里面是什么 |
+|---|---|
+| `HERMES_HOME\.env` | 你的 DeepSeek key —— 谁看到这个文件谁就有 |
+| `%LOCALAPPDATA%\dsh-pet\user\` | 气泡配置与**对话记忆**（`memory.json`） |
+
+要把运行数据给别人看之前，先想一下这两个。
+
+---
+
 ## 气泡里的 5 行，数从哪来
 
 | 行 | 来源 | 口径 |

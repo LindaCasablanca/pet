@@ -1,3 +1,8 @@
+# 凭证 —— 本包自己不需要放任何 key，但防止将来误放
+.env
+.env.*
+!.env.example
+
 # 依赖
 node_modules/
 package-lock.json
