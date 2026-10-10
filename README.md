@@ -90,15 +90,22 @@ npx github:LindaCasablanca/pet install
 
 ## 关于凭证
 
-**本包不含任何密钥。** 代码只是**读**凭证（从 `HERMES_HOME\.env`），读不到就返回空字符串，
-没有硬编码兜底 —— 所以别人用这个包，用的是**他自己**的 key，不会动到你的账。
+**本包不含任何 API key，也不往任何地方写 key** —— 代码里只有「读」，没有硬编码兜底。
 
-⚠️ 要看好的两处都不在仓库里：
+要让桌宠能查余额、能碎碎念，你需要自己准备一个 DeepSeek key。两种加法，前者优先：
 
-| 位置 | 里面是什么 |
+| 加法 | 怎么做 |
 |---|---|
-| `HERMES_HOME\.env` | 你的 DeepSeek key —— 谁看到这个文件谁就有 |
-| `%LOCALAPPDATA%\dsh-pet\user\` | 气泡配置与**对话记忆**（`memory.json`） |
+| 设环境变量 | 给运行桌宠的进程设 `DEEPSEEK_API_KEY=sk-...` |
+| 写进 Hermes 的 `.env` | 在 Hermes 安装目录的 `.env` 里加一行 `DEEPSEEK_API_KEY=sk-...` |
+
+包就从这两处读。Hermes 安装目录按顺序找：环境变量 `HERMES_HOME` → `C:\Hermes` → `~\.hermes`。
+
+读到的 key 只做两件事：查 DeepSeek 余额、调用碎碎念 / 对话。
+所以**谁用谁自己的 key，花的是谁的钱**。
+
+没配 key 也能用：桌宠本体、工作状态、右键菜单都照常，只有「查看用量与余额」和「碎碎念 / 对话」两项不可用。
+跑 `doctor` 能看到读没读到（只报长度，不回显）。
 
 ---
 
