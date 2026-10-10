@@ -1,0 +1,57 @@
+{
+  "name": "dsh-pet-hermes",
+  "version": "1.0.0",
+  "description": "把 dsh-pet 桌宠绑定到本地 Hermes 服务：服务在跑就出现、停了就消失，头顶气泡显示今日 token 增量 / 累计用量 / DeepSeek 余额，右键可打开 Hermes 面板、碎碎念与对话",
+  "type": "module",
+  "bin": {
+    "dsh-pet-hermes": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "tools",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "os": [
+    "win32"
+  ],
+  "dependencies": {
+    "dsh-pet": "^0.2.11",
+    "@electron/get": "^5.1.0"
+  },
+  "keywords": [
+    "dsh-pet",
+    "desktop-pet",
+    "hermes-agent",
+    "hermes-gateway",
+    "token-usage",
+    "electron",
+    "windows",
+    "dsh-pet-ccswitch"
+  ],
+  "license": "MIT",
+  "author": "LindaCasablanca",
+  "contributors": [
+    {
+      "name": "Joker.Yun",
+      "url": "https://github.com/cloud666666666"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LindaCasablanca/pet.git"
+  },
+  "homepage": "https://github.com/LindaCasablanca/pet#readme",
+  "bugs": {
+    "url": "https://github.com/LindaCasablanca/pet/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  }
+}

@@ -1,0 +1,21 @@
+# 依赖
+node_modules/
+package-lock.json
+*.tgz
+
+# 运行数据 —— 由 `install` 生成，不入库
+# （dsh-pet 插件约 65MB、Electron 300MB+、你的气泡配置与对话记忆都在里面）
+app/
+plugin/
+plugin.bak-*/
+electron/
+user/
+logs/
+runtime.json
+
+# 调试产物
+debug.log
+*.log
+
+# 本地自验截图（要对外展示的精修图放 assets/）
+tools/shots/
