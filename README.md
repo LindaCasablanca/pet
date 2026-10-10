@@ -13,6 +13,20 @@
 
 ---
 
+## 效果预览
+
+**① 用量气泡** —— 5 行：今日增量 / 服务状态 / DeepSeek 余额 / 累计用量 / 今日请求与花费
+
+![用量气泡](assets/preview-usage.png)
+
+**② 工作状态叙事（L1）** —— 不再只说"在干活"，而是说出「刚跑完 `write_file`」
+
+![工作状态](assets/preview-work-tool.png)
+
+> 气泡平时 10 秒自动收起；右键菜单的「查看用量与余额」可以随时叫回来。
+
+---
+
 ## 快速开始
 
 > ⚠ 本包**尚未发布到 npm registry**，所以 `npx dsh-pet-hermes` 暂时不通；用 `github:` 写法效果一样
@@ -335,6 +349,11 @@ node tools/cdp-open-panel.mjs                 # 故意发宿主的 3080 进去�
 # ⑨ 产物里的补丁与源码一致吗 / 就地升级（幂等只看 marker，改了实现重跑 patch 换不掉）
 node tools/sync-open-site-patch.mjs --check
 node tools/sync-open-site-patch.mjs --write
+
+# ⑩ 截一张「5 行用量气泡」的预览图 —— 走真实路径：合成右键 → 点「查看用量与余额」→ 气泡弹出 → 截图
+#    （余额轮询默认 1800 秒一次，等不来；菜单是主动触发的正路，顺带验了这一项还活着）
+PET_HOST_PORT=3099 PET_ELECTRON_ARGS='--no-sandbox --remote-debugging-port=9333' node lib/host.mjs
+node tools/shot-usage-bubble.mjs assets/preview-usage.png
 ```
 
 `tools/shots/` 下是实测截下的气泡样子（`waiting` 那条是最长文案，30 字两行）。
@@ -373,6 +392,18 @@ node tools/sync-open-site-patch.mjs --write
 | 工作状态 | 未实现（`/work-status` 返空壳） | 6 档 + **`task` 说出「在写 xxx.md」** |
 | 菜单「打开网站」 | DSH 网站 | Hermes 本地面板（`hermes dashboard`） |
 | 今日口径 | — | 账本增量（跨天精确）+ 首日估算（标注 ≈） |
+
+---
+
+## 路线：向「桌宠独立版」演进
+
+本包**目前是直接绑 Hermes 的**。目标形态是「桌宠独立版 + Provider 接口」——
+桌宠与宿主都不认具体服务，Hermes 退化成 Provider 的一个实现，换服务只需换一个文件。
+
+接口范围的说明：
+里面有与 [dsh-pet-ccswitch](https://github.com/cloud666666666/dsh-pet-ccswitch)
+逐字段对齐的对照表、6 个接口方法、路由清单，以及几个待定的接口细节。
+**改造尚未开始**（当前这一版仍是直连 Hermes 的实现）。
 
 ---
 
